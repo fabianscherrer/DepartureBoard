@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:DepartureBoard"
+             x:Class="DepartureBoard.MainPage">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="Android" Value="10, 0" />
+        </OnPlatform>
+    </ContentPage.Padding>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ListView SeparatorVisibility="None" 
+                  RowHeight="90"
+                  ItemsSource="{Binding DepartureEntries}"
+                  SelectionMode="None"
+                  Grid.Row="0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ContentView Padding="5">
+                            <Frame OutlineColor="Accent"
+                                   Padding="10">
+                                <StackLayout Orientation="Horizontal">
+                                    <Frame BackgroundColor="{Binding BusLineColor}" Padding="5" HorizontalOptions="Center" WidthRequest="50" HeightRequest="50">
+                                        <Label Text="{Binding BusLineNumber}" TextColor="White" FontSize="Large" WidthRequest="60" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+                                    </Frame>
+                                    <StackLayout>
+                                        <Label Text="{Binding DepartureTime, StringFormat='{0:HH:mm}'}"
+                                               FontSize="22"
+                                               VerticalOptions="StartAndExpand" />
+                                        <Label Text="{Binding StationName}"
+                                               FontSize="16"
+                                               VerticalOptions="CenterAndExpand" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </ContentView>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Grid.Row="1" Text="Reload" Command="{Binding ReloadCommand}"/>
+    </Grid>
+</ContentPage>
